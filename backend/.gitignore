@@ -1,0 +1,15 @@
+```
+ # Virtual Environment: Ignore the folder containing all installed libraries.
+ .venv/
+ venv/
+
+ # Python cache files: Ignore temporary files that Python creates.
+ __pycache__/
+ *.pyc
+
+ # Database file: Ignore your personal test database.
+ inventory.db
+
+ # Environment variables: CRITICAL - Never share your secret keys.
+ .env
+ ```
