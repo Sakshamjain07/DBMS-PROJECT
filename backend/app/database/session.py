@@ -4,14 +4,24 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
 
-load_dotenv() # This loads everything from your .env file
+load_dotenv()
 
-SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL")
-# Create the SQLAlchemy engine 
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
+raw_url = os.getenv("DATABASE_URL")
 
-# Create a SessionLocal class, which will be a factory for new session objects
+# Production Fail-safe: Ensure the URL starts with 'postgresql+psycopg2://'
+# Render/Heroku style environments sometimes pass raw 'postgres://' or 'postgresql://' strings 
+# which cause driver parsing crashes in SQLAlchemy 2.0+
+if raw_url and raw_url.startswith("postgresql://"):
+    SQLALCHEMY_DATABASE_URL = raw_url.replace("postgresql://", "postgresql+psycopg2://", 1)
+else:
+    SQLALCHEMY_DATABASE_URL = raw_url
+
+# Add a connect_timeout flag so it doesn't hang forever if the cloud network is busy
+engine = create_engine(
+    SQLALCHEMY_DATABASE_URL,
+    pool_pre_ping=True,  # Automatically check if connection is alive before using it
+    pool_recycle=300     # Refresh connections every 5 minutes
+)
+
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-# Create a Base class. Our ORM models will inherit from this class.
 Base = declarative_base()
