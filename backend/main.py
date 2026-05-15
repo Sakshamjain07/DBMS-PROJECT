@@ -14,15 +14,14 @@ app = FastAPI(title="AI-Powered Inventory Management System")
 
 # This is the list of "origins" (your frontend URLs) that are allowed to make requests
 origins = [
-    "http://localhost:8080",
-    "http://127.0.0.1:8080",
-    "http://localhost:5173",  
-    "http://127.0.0.1:5173"  
+    "https://dbms-project-bice-two.vercel.app", # Live frontend
+    "http://localhost:5173",                    # Local Vite (for local testing)
+    "http://localhost:8080"                     # Local alternate 
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],       # Allow all origins
+    allow_origins=origins,       # Allow specified origins
     allow_credentials=True,    # Allow cookies
     allow_methods=["*"],       # Allow all methods (GET, POST, PUT, etc.)
     allow_headers=["*"],       # Allow all headers
