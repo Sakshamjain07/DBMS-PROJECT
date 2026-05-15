@@ -12,7 +12,7 @@ raw_url = os.getenv("DATABASE_URL")
 # Render/Heroku style environments sometimes pass raw 'postgres://' or 'postgresql://' strings 
 # which cause driver parsing crashes in SQLAlchemy 2.0+
 if raw_url and raw_url.startswith("postgresql://"):
-    SQLALCHEMY_DATABASE_URL = raw_url.replace("postgresql://", "postgresql+psycopg2://", 1)
+    SQLALCHEMY_DATABASE_URL = raw_url.replace("postgresql://", "postgresql+pg8000://", 1)
 else:
     SQLALCHEMY_DATABASE_URL = raw_url
 
