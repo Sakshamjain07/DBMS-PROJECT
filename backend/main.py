@@ -6,6 +6,7 @@ from app.api.endpoints import auth, products, suppliers, orders, dashboard, reor
 from app.api.api import public_router, private_router
 from app.database.session import engine
 from app.models import model
+from sqlalchemy import text
 
 model.Base.metadata.create_all(bind=engine)
 
@@ -40,3 +41,21 @@ app.include_router(private_router, prefix="/api/v1")
 @app.get("/")
 def read_root():
     return {"message": "Welcome to the Inventory Management API"}
+
+@app.get("/health")
+def test_database_connection():
+    try:
+        # Try to connect and run a basic query
+        with engine.connect() as connection:
+            connection.execute(text("SELECT 1"))
+        return {
+            "status": "success", 
+            "message": "Database connection is PERFECT! 🚀"
+        }
+    except Exception as e:
+        # If it fails, it will tell you exactly why
+        return {
+            "status": "error", 
+            "message": "Database connection failed.",
+            "details": str(e)
+        }
