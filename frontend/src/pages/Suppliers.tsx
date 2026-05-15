@@ -86,7 +86,7 @@ const Suppliers = () => {
   // 2. FETCH ALL SUPPLIERS (READ)
   const fetchSuppliers = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/v1/suppliers");
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/suppliers`);
       if (!response.ok) {
         throw new Error("Failed to fetch suppliers");
       }
@@ -120,7 +120,7 @@ const Suppliers = () => {
       };
 
       try {
-        const response = await fetch(`http://127.0.0.1:8000/api/v1/suppliers/${supplierToEdit.id}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/suppliers/${supplierToEdit.id}`, {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(updatedSupplierData),
@@ -153,7 +153,7 @@ const Suppliers = () => {
       };
 
       try {
-        const response = await fetch("http://127.0.0.1:8000/api/v1/suppliers", {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/suppliers`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(newSupplierData),
@@ -176,7 +176,7 @@ const Suppliers = () => {
   // 4. "DELETE" FUNCTION
   const handleDelete = async (supplierToDelete: Supplier) => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/v1/suppliers/${supplierToDelete.id}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/suppliers/${supplierToDelete.id}`, {
         method: "DELETE",
       });
 

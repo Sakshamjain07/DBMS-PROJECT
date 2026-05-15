@@ -62,7 +62,7 @@ const Inventory = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/api/v1/products");
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/products`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -95,7 +95,7 @@ const handleFormSubmit = async () => {
       };
 
       try {
-        const response = await fetch(`http://127.0.0.1:8000/api/v1/products/${productToEdit.id}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/products/${productToEdit.id}`, {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(updatedProductData),
@@ -132,7 +132,7 @@ const handleFormSubmit = async () => {
       };
 
       try {
-        const response = await fetch("http://127.0.0.1:8000/api/v1/products", {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/products`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(newProductData),
@@ -292,7 +292,7 @@ const handleFormSubmit = async () => {
 
  const handleDelete = async (productToDelete: Product) => {
   try {
-    const response = await fetch(`http://127.0.0.1:8000/api/v1/products/${productToDelete.id}`, {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/products/${productToDelete.id}`, {
       method: "DELETE",
     });
 

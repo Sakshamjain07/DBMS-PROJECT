@@ -95,7 +95,7 @@ const Orders = () => {
   // 6. ADD useEffect TO FETCH DATA
   const fetchOrders = async () => {
   try {
-    const response = await fetch("http://127.0.0.1:8000/api/v1/orders");
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/orders`);
     if (!response.ok) {
       throw new Error("Failed to fetch orders");
     }
@@ -225,7 +225,7 @@ useEffect(() => {
 
   try {
     // 2. Fetch the full details from the new endpoint
-    const response = await fetch(`http://127.0.0.1:8000/api/v1/orders/${order.id}`);
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/orders/${order.id}`);
     if (!response.ok) {
       throw new Error("Failed to fetch order details");
     }

@@ -32,7 +32,7 @@ const Index = () => {
   useEffect(() => {
     const fetchKpis = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/api/v1/dashboard/kpis");
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/dashboard/kpis`);
         if (!response.ok) {
           throw new Error("Failed to fetch dashboard KPIs");
         }

@@ -37,7 +37,7 @@ const LowStockAlertsCard = () => {
     const fetchAlerts = async () => {
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/api/v1/dashboard/low-stock-alerts"
+          `${import.meta.env.VITE_API_URL}/api/v1/dashboard/low-stock-alerts`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch stock alerts");
@@ -67,7 +67,7 @@ const LowStockAlertsCard = () => {
 
     try {
       // --- 3. CALL THE NEW REORDER ENDPOINT ---
-      const response = await fetch("http://127.0.0.1:8000/api/v1/reorders/reorder", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/reorders/reorder`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

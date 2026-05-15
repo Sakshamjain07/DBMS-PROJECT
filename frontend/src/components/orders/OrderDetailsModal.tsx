@@ -67,7 +67,7 @@ export function OrderDetailsModal({ open, onOpenChange, order, onOrderUpdate }: 
     const orderId = order.id.replace("#ORD-", "");
     
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/v1/orders/${orderId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/orders/${orderId}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
